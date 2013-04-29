@@ -1,0 +1,46 @@
+extends layout
+
+block video
+	div#navContent
+		.navbar
+			.navbar-inner
+				.brand We're Rocking Flannel.
+				.container-fluid
+					a.btn.btn-navbar(data-toggle='collapse',data-target='.nav-collapse')
+						span.icon-bar
+						span.icon-bar
+						span.icon-bar 
+					.nav-collapse.collapse
+						ul.nav.nav-tabs	
+							li
+								a(href='/')  Home
+							li
+								a(href='/shows') Shows
+							li
+								a(href='/band') Behind the Music
+							li.dropdown.active
+								a.dropdown-toggle(id='media',data-toggle='dropdown',href='#') Media
+									b.caret 
+								ul(class="dropdown-menu",role="menu",aria-labelledby="media")
+									li
+										a(href='/music') Music
+									li.active 
+										a(href='/video') Video
+									li
+										a(href='/photos') Photos
+							li.divider-vertical
+								li 
+									a(href='/vote') Rock the Vote
+	.row-fluid
+		.span4
+			center
+				iframe(width="280",height="160",src="http://www.youtube.com/embed/0bXH41dKBcU",frameborder="0",allowfullscreen)
+				h4 Buddy Holly by Weezer
+		.span4
+			center
+				iframe(width="280",height="160",src="http://www.youtube.com/embed/VtJsZaSxqXg",frameborder="0",allowfullscreen)
+				h4 Say it Ain't So by Weezer
+		.span4
+			center
+				iframe(width="280",height="160",src="http://www.youtube.com/embed/Vcza4aulqMo",frameborder="0",allowfullscreen)
+				h4 Wild Buffalo, August 2012

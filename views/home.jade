@@ -1,0 +1,75 @@
+extends layout
+
+block home
+	div#navContent
+		.navbar
+			.navbar-inner
+				.brand We're Rocking Flannel.
+				.container-fluid
+					a.btn.btn-navbar(data-toggle='collapse',data-target='.nav-collapse')
+						span.icon-bar
+						span.icon-bar
+						span.icon-bar 
+					.nav-collapse.collapse
+						ul.nav.nav-tabs	
+							li.active
+								a(href='/')  Home
+							li
+								a(href='/shows') Shows
+							li
+								a(href='/band') Behind the Music
+							li.dropdown
+								a.dropdown-toggle(id='media',data-toggle='dropdown',href='#') Media
+									b.caret 
+								ul(class="dropdown-menu",role="menu",aria-labelledby="media")
+									li
+										a(href='/music') Music
+									li 
+										a(href='/video') Video
+									li
+										a(href='/photos') Photos
+							li.divider-vertical
+								li 
+									a(href='/vote') Rock the Vote
+	.container-fluid
+		.row-fluid
+			.span8
+				.page-header
+					div#flannelSlide.carousel.slide 
+						ol.carousel-indicators
+							li.active(data-target='flannelSlide',data-slide-to='0')
+							li.active(data-target='flannelSlide',data-slide-to='1')
+							li.active(data-target='flannelSlide',data-slide-to='2')			
+						.carousel-inner
+							.active.item
+								.item 
+									img(src='/images/slide-main.jpg')
+								//- 	.slideShow(style='background: #0099cc url("/images/slide-main.jpg") no-repeat center; ')
+										//- dl.dl-horizontal
+										//- 	dt The Blue Album
+										//- 	dd We rock the Weezer... In the Garage like No One Else... oh Say it Ain't So!
+							.item 
+								img(src='/images/slide-buffalo.jpg')
+							.item
+								img(src='/images/slide-mckays-bbq.jpg')	
+						a.carousel-control.left(href='#flannelSlide',data-slide='prev') &lsaquo;
+						a.carousel-control.right(href='#flannelSlide',data-slide='next') &rsaquo;
+			.span4
+				.hero-unit
+					div#news
+						center
+							h4 Rock Out with Flannel!
+							dl
+								dt Friday, April 19th 2013 - 8:30PM
+								dd
+									a(href='https://www.facebook.com/events/178387425645597/') Come down to McKay's Taphouse 
+									span (Pizza Pipeline) for a free show.
+							hr
+							h3 Want to Book Us?
+							table
+								tr
+									td
+										a(href='mailto:ryananthonyrichardson@gmail.com') Email Ryan 
+										span |
+									td
+										a(href='mailto:rockingflannel@gmail.com') Or the Band

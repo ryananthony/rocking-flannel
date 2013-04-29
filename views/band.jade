@@ -1,0 +1,74 @@
+extends layout
+
+block band
+	div#navContent
+		.navbar
+			.navbar-inner
+				.brand We're Rocking Flannel.
+				.container-fluid
+					a.btn.btn-navbar(data-toggle='collapse',data-target='.nav-collapse')
+						span.icon-bar
+						span.icon-bar
+						span.icon-bar 
+					.nav-collapse.collapse
+						ul.nav.nav-tabs	
+							li
+								a(href='/')  Home
+							li
+								a(href='/shows') Shows
+							li.active
+								a(href='/band') Behind the Music
+							li.dropdown
+								a.dropdown-toggle(id='media',data-toggle='dropdown',href='#') Media
+									b.caret 
+								ul(class="dropdown-menu",role="menu",aria-labelledby="media")
+									li
+										a(href='/music') Music
+									li 
+										a(href='/video') Video
+									li
+										a(href='/photos') Photos
+							li.divider-vertical
+								li 
+									a(href='/vote') Rock the Vote
+	.row-fluid
+		.span12
+			.hero-unit
+				p Terence and Ryan were jamming on a few 90's tracks throughout the Fall of 2011 with their friend Matt until a job opportunity lured Matt to Seattle. Soon after, it was Terence's good friend Josiah laying down the beats. As more and more songs were discussed, it became obvious another guitar player would be preferred so Ryan hit up his long-time friend (and ex-Strait A Students lead guitarist) Elliot to give it a shot. Fast forward to Spring 2013, and Flannel is capable of dropping upwards of thirty 90's tracks on any given night and never have to knock on wood.
+
+	.row-fluid
+		.span6.bandImage
+			table
+				tr
+					td(width='60%')
+						img(src='/images/band/terence.jpg',target='#terence')
+					td
+						h4 Terence Klein
+						span Although born in Montana, Terence spent a majority of his elementary and high school years in Yakima, WA. After breaking his wrist during a high school football game, Terence turned to guitar for both physical and mental therapy. Although a natural lefty, Terence choose to learn to play guitar right-handed. He has no idea how to play a left-handed guitar. Post high school, Terence moved to Bellingham, WA to attend college, snowboard, and party like a rock star. He has excelled at all three.
+		.span6.bandImage
+			table
+				tr
+					td(width='60%')
+						img(src='/images/band/ryan.jpg',target='#ryan')
+					td
+						h4 Ryan Richardson
+						span After being born and raised in H-Town Tejas, Ryan split for the Pacific Northwest at the ripe age of 16. Through his twenties, he enjoyed semi-success in the musical acts International Businessmen and Strait A Students. 
+						p Now he's basically thirty.
+	.row-fluid
+		.span6.bandImage
+			table
+				tr
+					td(width='40%')
+						h4 Josiah Cox
+						span Josiah Cox has been playing the skins for 23 years. When he is not working or playing the drums he can be found spending time with his wife Heather, his cats and his friends and family usually making or consuming great food and beer.
+					td
+						img(src='/images/band/josiah.jpg',target='#josiah')
+			
+		.span6.bandImage
+			table
+				tr
+					td(width='40%')
+						h4 Elliot Starks
+						span Elliot Starks has been playing the guitar for more than a decade in Bellingham, WA, where he grew up.  His influences range from vicious metal to prog-rock to pop-punk and he does his best to emulate guitar gods like Marty Friedman, Paul Gilbert, and Jon Petrucci, but mostly he just plays video games a lot.  He lives with his wife and daughter, where he also enjoys programming, cooking, and good beer.
+					td
+						img(src='/images/band/elliot.jpg',target='#elliot')

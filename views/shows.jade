@@ -1,0 +1,62 @@
+extends layout
+
+block shows
+	div#navContent
+		.navbar
+			.navbar-inner
+				.brand We're Rocking Flannel.
+				.container-fluid
+					a.btn.btn-navbar(data-toggle='collapse',data-target='.nav-collapse')
+						span.icon-bar
+						span.icon-bar
+						span.icon-bar 
+					.nav-collapse.collapse
+						ul.nav.nav-tabs	
+							li
+								a(href='/')  Home
+							li.active
+								a(href='/shows') Shows
+							li
+								a(href='/band') Behind the Music
+							li.dropdown
+								a.dropdown-toggle(id='media',data-toggle='dropdown',href='#') Media
+									b.caret 
+								ul(class="dropdown-menu",role="menu",aria-labelledby="media")
+									li
+										a(href='/music') Music
+									li 
+										a(href='/video') Video
+									li
+										a(href='/photos') Photos
+							li.divider-vertical
+								li 
+									a(href='/vote') Rock the Vote
+	.row-fluid
+		.span12
+			table#showTable.flannelTable.table.table-bordered.table-condensed
+				thead
+					tr
+						th Date
+						th Venue
+						th Information
+				tbody
+					tr
+						td(width='20%')  4/19/2013 - 8PM
+						td(width='30%') 
+							a(href='https://www.facebook.com/events/178387425645597/') McKay's Tap House / Pizza Pipeline
+						td(style='font-size:.8em;') It's the end of Rogue brewers week @ McKay's Taphouse and we are helping to send it out right. There will be a raffle for prizes, great beer and awesome music. Our friend Jed is visiting us from Montana which means The Diamondbacks are gonna rock the folk out. Flannel will also be present to play your favorite and maybe not so favorite 90's tracks. We haven't performed since last year so no excuses as it pertains to attendance... unless you literally cannot get through the door. ;)
+					tr
+						td(width='20%')  11/26/2012 - 9:30PM
+						td(width='30%') 
+							a(href='https://www.facebook.com/events/296697740439291/') McKay's Tap House / Pizza Pipeline
+						td(style='font-size:.8em;') We are at it again and you should come join us, cause it's Monday and there is nothing going on on better than live 90 songs and beer. Please note the change of date - and the addition of Widmer Brothers Brewing to the event. This will be an indoor set and we will start around 8ish so we will be done in time to get you all rested for Tuesday. We promise to use our indoor voices. Widmer Brothers will have special brews on tap and there will be raffles for prizes. Here is our goal. We know you would rather come see us on a non work night. We agree with you! If we pack out the place we can start asking for weekend spots but to do that we need your help. Please come out and kick it with us. There is no cover and it's a Monday so really, come out and have some cheap fun and listen to the sounds of the 90's.
+					tr
+						td(width='20%')  9/30/2012 - 3PM
+						td(width='30%') 
+							a(href='https://www.facebook.com/events/266946233424040/') McKay's (Outside BBQ Benefit)
+						td(style='font-size:.8em;') A Seahawks game and then outdoor BBQ action with live 90's music! Can it get any better? We are gonna turn Mckay's parking lot into a Rock and Roll parking lot! The Seahawks game starts at 10 am and we will be @ Mckay's to watch it. GO HAWKS!!! Music kicks off sometime in the afternoon. Oh yeah, that's right!! They are closing off the parking lot and turning it into a giant beer garden BBQ!! Where we will be playing!!
+					tr
+						td(width='20%')  8/18/2012 - 9PM
+						td(width='30%') 
+							a(href='https://www.facebook.com/events/317133511716610/') The Wild Buffalo
+						td(style='font-size:.8em;') Our first show!

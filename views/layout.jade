@@ -1,0 +1,58 @@
+doctype 5
+html
+	head
+		meta(name='viewport',content='width=device-width, initial-scale=1.0')
+		title Flannel - 90's Rock in Bellingham, Washington.
+		script(src='/javascripts/jquery-1.9.1.min.js')
+		script(src='/bootstrap/js/bootstrap.min.js')
+		- //script(src='/javascripts/sorttable.js')
+		script(src='/javascripts/flannel.js')
+		link(rel='stylesheet', href='/bootstrap/css/bootstrap.min.css')
+		link(rel='stylesheet', href='/bootstrap/css/bootstrap-responsive.min.css')
+		link(rel='stylesheet', href='/stylesheets/flannel.css')
+		- //script(src="/galleryview/js/jquery.galleryview-3.0-dev.js")
+		- //link(rel="stylesheet", href="/galleryview/css/jquery.galleryview-3.0-dev.css")
+		
+	body
+		.container-fluid
+			block home
+			block vote
+			block band
+			block music
+			block video
+			block photos
+			block shows
+		.container-fluid
+			.row-fluid
+				p
+				hr
+			.row-fluid
+				div#pcFooter.hidden-tablet.hidden-phone
+					.span4(style='text-align:right;')
+							a(href='https://soundcloud.com/rockingflannel')
+								img(src='/images/ftr-soundcloud.png')
+					.span4
+						center
+							a(href='http://www.youtube.com/user/rockingflannel/featured')
+								img(src='/images/ftr-youtube.png')
+					.span4(style='text-align:left;')
+							a(href='https://www.facebook.com/rockingflannel')
+								img(src='/images/ftr-facebook.png')
+				div#mobileFooter.hidden-desktop.hidden-tablet
+					table.table.table-bordered
+						tr
+							td(style='background-color:#FF3300;') 
+								center 
+									a(href='https://soundcloud.com/rockingflannel') SoundCloud
+							td(style='background-color:#FF3333;') 
+								center 
+									a(href='http://www.youtube.com/user/rockingflannel/featured') YouTube
+							td(style='background-color:#336699;') 
+								center 
+									a(href='https://www.facebook.com/rockingflannel') Facebook
+				.span12
+					center
+						p 
+							span Running on 
+							a(href='http://expressjs.com/') Express Framework
+							span  - NodeJS (ver. #{process.versions.node}).

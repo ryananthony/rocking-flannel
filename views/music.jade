@@ -1,0 +1,48 @@
+extends layout
+
+block music
+	div#navContent
+			.navbar
+				.navbar-inner
+					.brand We're Rocking Flannel.
+					.container-fluid
+						a.btn.btn-navbar(data-toggle='collapse',data-target='.nav-collapse')
+							span.icon-bar
+							span.icon-bar
+							span.icon-bar 
+						.nav-collapse.collapse
+							ul.nav.nav-tabs	
+								li
+									a(href='/')  Home
+								li
+									a(href='/shows') Shows
+								li
+									a(href='/band') Behind the Music
+								li.dropdown.active
+									a.dropdown-toggle(id='media',data-toggle='dropdown',href='#') Media
+										b.caret 
+									ul(class="dropdown-menu",role="menu",aria-labelledby="media")
+										li.active
+											a(href='/music') Music
+										li 
+											a(href='/video') Video
+										li 
+											a(href='/photos') Photos
+								li.divider-vertical
+									li 
+										a(href='/vote') Rock the Vote
+	.row-fluid
+		.span6 
+			iframe(width="100%",height="166",scrolling="no",frameborder="no",src="https://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F84964585")
+		.span6 
+			iframe(width="100%",height="166",scrolling="no",frameborder="no",src="https://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F84964584")
+	.row-fluid
+		.span6 
+			iframe(width="100%",height="166",scrolling="no",frameborder="no",src="https://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F84964583")
+		.span6 
+			iframe(width="100%",height="166",scrolling="no",frameborder="no",src="https://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F84964582")
+	.row-fluid
+		.span6 
+			iframe(width="100%",height="166",scrolling="no",frameborder="no",src="https://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F84964581")
+		.span6 
+			iframe(width="100%",height="166",scrolling="no",frameborder="no",src="https://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F77068442")

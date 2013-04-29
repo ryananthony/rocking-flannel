@@ -1,0 +1,150 @@
+extends layout
+
+block vote
+	#navContent
+		.navbar
+			.navbar-inner
+				.brand We're Rocking Flannel.
+				.container-fluid
+					a.btn.btn-navbar(data-toggle='collapse',data-target='.nav-collapse')
+						span.icon-bar
+						span.icon-bar
+						span.icon-bar 
+					.nav-collapse.collapse
+						ul.nav.nav-tabs	
+							li
+								a(href='/')  Home
+							li
+								a(href='/shows') Shows
+							li
+								a(href='/band') Behind the Music
+							li.dropdown
+								a.dropdown-toggle(id='media',data-toggle='dropdown',href='#') Media
+									b.caret 
+								ul(class="dropdown-menu",role="menu",aria-labelledby="media")
+									li
+										a(href='/music') Music
+									li 
+										a(href='/video') Video
+									li
+										a(href='/photos') Photos
+							li.divider-vertical
+								li.active
+									a(href='/vote') Rock the Vote
+			center
+				h2 Vote for your favorite Flannel cover!
+				span Click on a song in the table to vote or add a new song with the form.
+				h4 Only 3 votes allowed per host every 24 hours.
+				div#voteFeedback
+					- if (typeof(voteError) !== 'undefined') {
+					center
+						h3(style='color:#FFA07A') #{voteError}
+					- }
+				hr
+	.container-fluid
+		.row-fluid
+			.span8
+				table.flannelTable.table.sortable.table-bordered
+					tbody
+						form#voteForm.navbar-form(action='/vote',method='post')
+						tr 
+							th Artist
+							th Title
+							th Votes
+						each song in songs
+							if song.comfort == 5
+								rowColor = '#00FF7F'
+							else if song.comfort == 4
+								rowColor = '#B3EE3A'
+							else if song.comfort == 3
+								rowColor = '#FFFF7E'
+							else if song.comfort == 2
+								rowColor = '#FFC469'
+							else if song.comfort == 1
+								rowColor = '#FFA07A'
+							else song.comfort == 0
+								rowColor = '#F6CCDA'
+							tr.voteShow.songRecord(id='#{song.unique_id}',style='background-color:#{rowColor};')
+								td #{song.artist}
+								td 
+									span(value='#{"votefor_" + song.unique_id}') 
+										strong #{song.title}
+								td
+									center #{song.votes}
+							tr(id='#{"votefor_" + song.unique_id}',style='display:none;')
+								td(colspan='2').voteSong
+									h4(value='#{song.unique_id}')
+										center Vote for #{song.title} by #{song.artist}.
+								td.voteSong
+									center
+										if song.link
+											a(href='#{song.link}') 
+												img(src='/images/song-info.png')
+
+
+				center
+					h3 What is with all the colors?
+
+				table#legendTable.table.table-bordered
+					tr
+						td(style='background-color:#00FF7F;') 
+							center In the bank.
+						td(style='background-color:#B3EE3A;') 
+							center Set-worthy.
+						td(style='background-color:#FFFF7E;') 
+							center Getting there.
+					tr
+						td(style='background-color:#FFC469;') 
+							center Mediocrity.
+						td(style='background-color:#FFA07A;') 
+							center Unintelligible
+						td(style='background-color:#F6CCDA;') 
+							center Prospect Song.
+			.span4
+				div#addSong
+					form#songForm(action='/add_song',method='post')
+						center
+							h3 Add a Song!
+							#addSongFeedback
+							- if (typeof(addError) !== 'undefined') {
+							center
+								h5(style='color:#FFA07A') #{addError}
+							- }
+						fieldset
+							legend.inputInfo
+								div.control-group
+									label.control-label 
+										span#artistFeedback Artist:  
+									div.controls
+										input.input-block-level(type='text',name='artist',placeholder='Everclear')
+								div.control-group	
+									label.control-label 
+										span#titleFeedback Title: 
+									div.controls
+										input.input-block-level(type='text',name='title',placeholder='Santa Monica')
+								div.control-group	
+									label.control-label 
+										span#emailFeedback Email Address: 
+									div.controls
+										input.input-block-level(type='text',name='email',placeholder='rockingflannel@gmail.com')
+						fieldset
+							legend.inputInfo
+								div.control-group
+									label.control-label Album:
+									div.controls
+										input.input-block-level(type='text',name='album',placeholder='Sparkle and Fade')
+										label.inputInfo You should probably know.
+								div.control-group	
+									label.control-label Link:
+									div.controls
+										input.input-block-level(type='text',name='link',placeholder='http://en.wikipedia.org/wiki/Santa_Monica_(song)')
+										label.inputInfo To save us from searching.
+								div.control-group
+									label.control-label Your Name:
+									div.controls
+										input.input-block-level(type='text',name='name',placeholder='Jim Bergman')
+										label.inputInfo Credit, where it is due.
+
+							div.control-group
+								div.controls
+									button#submitSong.btn(type='submit') Add Song					
