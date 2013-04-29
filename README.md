@@ -6,9 +6,9 @@ Website for the Bellingham 90's cover band [FLANNEL](http://www.rockingflannel.c
 Core packages
 -------------
 
-	* Express (3.1.0) - Web Framework
-	* Jade (0.28.2) - Templating Engine
-	* Cradle (0.6.4) - Couchdb Integration
+* Express (3.1.0) - Web Framework
+* Jade (0.28.2) - Templating Engine
+* Cradle (0.6.4) - Couchdb Integration
 
 Directions
 ----------

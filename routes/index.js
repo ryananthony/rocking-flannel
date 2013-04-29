@@ -15,17 +15,19 @@ function voteSort(songArray) {
       sortedSongs.push(songRecord)
       continue
     } 
-    for (var record in sortedSongs) 
+    for (var insertedSong in sortedSongs) 
     {
-      var thisIndex = record
-      var thisVote = sortedSongs[record].votes
+      var thisVote = sortedSongs[insertedSong].votes
 
-      if (songRecord.votes >= thisVote) { //add at last position
-        sortedSongs.splice(thisIndex, 0, songRecord);
+      if (songRecord.votes == 1 ) 
+      {
+        sortedSongs.push(songRecord)
         break
       }
-      else if (songRecord.votes == thisVote /*|| songRecord.votes == 1*/) { // they should be equal so add at this position
-        sortedSongs.splice(record, 0, songRecord);
+      else if (songRecord.votes > thisVote) 
+      { //add at last position
+        console.log(songRecord.unique_id + ' has more votes than ' + sortedSongs[insertedSong].unique_id)
+        sortedSongs.splice(insertedSong, 0, songRecord);
         break
       }
     } // end sorting THIS song
@@ -318,7 +320,7 @@ exports.vote = function(req, res){
       sortedSongs = voteSort(doc.cover)
 
       res.render('vote', {
-        songs: doc.cover
+        songs: sortedSongs
       });
     }
   });
