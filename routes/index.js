@@ -38,13 +38,14 @@ function voteSort(songArray) {
 
 
 exports.index = function(req, res){
-  global.couch.get('song', function (err, doc) {
+  global.fs.readFile('./json/songs.json', function (err,songsJsonDoc) {
     if (err) {
       console.log('fail')
     }
     else
     {
-      sortedSongs = voteSort(doc.cover)
+      
+      var sortedSongs = voteSort(JSON.parse(songsJsonDoc).cover)
       res.render('home', {
         songs: sortedSongs
       });
@@ -60,18 +61,21 @@ exports.add_song = function(req, res){
       res.locals.submission.title != '' && 
       res.locals.submission.email != '' )
   {
-    global.couch.get('song', function (err, doc) {
+    global.fs.readFile('./json/songs.json', function (err,songsJsonDoc) {
       if (err) {
-        console.log('failed to fetch document')
-      } else {
+        console.log('fail')
+      }
+      else
+      {
+        var parsedSongs = JSON.parse(songsJsonDoc)
         //res.send('nothing')
         var songId = res.locals.submission.artist.replace(/\W/g, '').toLowerCase() + '_' + res.locals.submission.title.replace(/\W/g, '').toLowerCase()
         
         var songExistsFlag = 0
-        for (var song in doc.cover) 
+        for (var song in parsedSongs.cover) 
         {
-          //console.log(doc.cover[song].unique_id)
-          if (doc.cover[song].unique_id == songId) 
+          //console.log(parsedSongs.cover[song].unique_id)
+          if (parsedSongs.cover[song].unique_id == songId) 
           {
             songExistsFlag = 1
           }
@@ -97,35 +101,27 @@ exports.add_song = function(req, res){
                 songSubmission.votes = 1
                 songSubmission.comfort = 0
 
-                doc.cover.push(songSubmission)
+                parsedSongs.cover.push(songSubmission)
 
-                global.couch.save('song', doc, function (err, newDoc) {
+                global.fs.writeFile('./json/songs.json', JSON.stringify(parsedSongs), function (err) {
                   if (err) {
-                    console.log('failed to save document')
+                    console.log('failed to append new song to songs.json')
                   }
                   else
                   {
-                    global.couch.get('song', function (err, doc) {
-                      if (err) {
-                        console.log('fail')
-                      }
-                      else
-                      {
-                        sortedSongs = voteSort(doc.cover)
-                        console.log('Song added.')
-                        res.render('vote', {
-                          songs: sortedSongs,
-                          addError: 'Song added successfully, thanks!'
-                        });
-                      }
-                    }); 
+                    sortedSongs = voteSort(parsedSongs.cover)
+                    console.log('Song added.')
+                    res.render('vote', {
+                      songs: sortedSongs,
+                      addError: 'Song added successfully, thanks!'
+                    });
                   } //doc saved, ok
                 }); //saving doc back to couch
         
         } 
         else 
         {
-          sortedSongs = voteSort(doc.cover)
+          sortedSongs = voteSort(parsedSongs.cover)
           console.log('ID exists')
           res.render('vote', {
             songs: sortedSongs,
@@ -169,19 +165,18 @@ exports.vote = function(req, res){
   console.log(ip + ' voted for ' + songId)
 
   if (typeof(songId) !== 'undefined') { 
-  global.couch.get('user', function (err, doc) 
-  {
-    if (err) 
-    {
-      console.log('failed to fetch user list')
+  global.fs.readFile('./json/votes.json', function (err,votesJsonDoc) {
+    if (err) {
+      console.log('failed to fetch votes')
     }
-    else // find the user object by IP Address
+    else
     {
-      for (var userRecord in doc.votes) 
+      var parsedVotes = JSON.parse(votesJsonDoc)
+      for (var userRecord in parsedVotes.votes) 
       {
-        if (doc.votes[userRecord].ip == ip) 
+        if (parsedVotes.votes[userRecord].ip == ip) 
         {
-          var currentUser = doc.votes[userRecord]
+          var currentUser = parsedVotes.votes[userRecord]
           var previousIndex = userRecord
           console.log('vote record should have just spliced')
           break
@@ -211,10 +206,10 @@ exports.vote = function(req, res){
         {
           var voteTime = currentUser.stamp[timeStamp]
           //console.log(now)
-          console.log(currentUser.stamp.length)
-          console.log(voteTime)
+          //console.log(currentUser.stamp.length)
+          //console.log(voteTime)
           var minsBetween = (now.getTime() - voteTime) / (1000 * 60)
-          console.log(minsBetween)
+          //console.log(minsBetween)
 
           if (minsBetween > waitingPeriod) 
           { 
@@ -236,49 +231,47 @@ exports.vote = function(req, res){
       
       // drop old version of user
       if (previousIndex) {
-        console.log('before: ' + doc.votes.length)
-        doc.votes.splice(previousIndex, 1)
-        console.log('after: ' + doc.votes.length)
+        console.log('before: ' + parsedVotes.votes.length)
+        parsedVotes.votes.splice(previousIndex, 1)
+        console.log('after: ' + parsedVotes.votes.length)
       }
 
-      doc.votes.push(currentUser)
+      parsedVotes.votes.push(currentUser)
 
-      global.couch.save('user', doc, function (err, user) {
+      global.fs.writeFile('./json/votes.json', JSON.stringify(parsedVotes), function (err) {
         if (err) {
-          console.log('failed to save user doc for stamp increment')
+          console.log('failed to update the voter in votes.json')
         }
       });
 
       if (voteEnabled == 1) 
       {
         //update the vote
-        global.couch.get('song', function (err, doc) 
-        {
+        global.fs.readFile('./json/songs.json', function (err,songsJsonDoc) {
           if (err) {
-            console.log('failed to fetch song list')
+            console.log('fail')
           }
           else
           {
+            var parsedSongs = JSON.parse(songsJsonDoc)
             //find the matching song, then increment the vote count
-            for (var song in doc.cover) 
+            for (var song in parsedSongs.cover) 
             {
               //console.log(song)
-              if (doc.cover[song].unique_id == songId) 
+              if (parsedSongs.cover[song].unique_id == songId) 
               {
-               // console.log(doc.cover[song].votes)
-                doc.cover[song].votes = parseInt(doc.cover[song].votes) + 1
+               // console.log(parsedSongs.cover[song].votes)
+                parsedSongs.cover[song].votes = parseInt(parsedSongs.cover[song].votes) + 1
               }
             }
             
-            global.couch.save('song', doc, function (err, newDoc) 
-            {
-              if (err) 
-              {
-                console.log('failed to save document')
+            global.fs.writeFile('./json/songs.json', JSON.stringify(parsedSongs), function (err) {
+              if (err) {
+                console.log('failed to append vote to songs.json')
               }
             });
 
-          sortedSongs = voteSort(doc.cover)
+          sortedSongs = voteSort(parsedSongs.cover)
           console.log('Vote saved to database successfully.')
           res.render('vote', 
           {
@@ -290,13 +283,13 @@ exports.vote = function(req, res){
       }
       else //user is out of votes
       {
-        global.couch.get('song', function (err, doc) {
+        global.fs.readFile('./json/songs.json', function (err,songsJsonDoc) {
           if (err) {
             console.log('fail')
           }
           else
           {
-            sortedSongs = voteSort(doc.cover)
+            sortedSongs = voteSort(JSON.parse(songsJsonDoc).cover)
             console.log('User out of votes.')
             res.render('vote', {
               songs: sortedSongs,
@@ -310,14 +303,14 @@ exports.vote = function(req, res){
   });
 
 } else { //probably a GET requert, just render the list
-  global.couch.get('song', function (err, doc) {
+  global.fs.readFile('./json/songs.json', function (err,songsJsonDoc) {
     if (err) {
       console.log('fail')
     }
-    else 
+    else
     {
-      console.log(doc.cover)
-      sortedSongs = voteSort(doc.cover)
+      //console.log(songsJsonDoc.cover)  // can't console.log JSON parsed?
+      var sortedSongs = voteSort(JSON.parse(songsJsonDoc).cover)
 
       res.render('vote', {
         songs: sortedSongs

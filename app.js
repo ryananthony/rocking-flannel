@@ -8,18 +8,13 @@ var express = require('express')
   , routes = require('./routes')
   , http = require('http')
   , path = require('path')
-  , dutils = require('date-utils')
-  , db = require('./local_modules/db/db');
+  , fs = require('fs');
 
 var app = express();
 
 var pub = __dirname + '/public';
 
-//global.dutils = dutils
-global.couch = db
-// allow database available in other modules
-//exports.couch = couch
-
+global.fs = fs
 
 //middleware for passing variables to routes
 save_vars = function(req, res, next) {
