@@ -116,31 +116,31 @@ exports.add_song = function(req, res){
                       addError: 'Song added successfully, thanks!'
                     });
                   } //doc saved, ok
-                }); //saving doc back to couch
+                }); //saving doc back to file system
         
         } 
-        else 
-        {
+        else  // ID already exists
+        { 
           sortedSongs = voteSort(parsedSongs.cover)
           console.log('ID exists')
           res.render('vote', {
             songs: sortedSongs,
             voteError: 'Does the song already exist?'
           });
-        }// ID already exist
+        }
 
 
-      } //db connection successful
-    }); //couch request
+      } // end of read song-file successful block
+    }); // end of call to read file
 
   } else { // missing a required field, pass error
-    global.couch.get('song', function (err, doc) {
+    global.fs.readFile('./json/songs.json', function (err,songsJsonDoc) {
       if (err) {
         console.log('fail')
       }
       else
       {
-        sortedSongs = voteSort(doc.cover)
+        sortedSongs = voteSort(JSON.parse(songsJsonDoc).cover)
         console.log('User missed a required field.')
         res.render('vote', {
           songs: sortedSongs,
