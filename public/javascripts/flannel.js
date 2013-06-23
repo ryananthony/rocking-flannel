@@ -33,12 +33,20 @@ $(document).ready(function() {
 	});
 
 
+	var stillProcessing = false;
 	// send vote to server - TODO: make AJAX
 	$(".voteSong > h4").click(function() 
 	{
+		// BUGFIX for slow jquery on mobile devices
+		// resulting in being able to spam POST requests
+		if (stillProcessing === true) 
+		{
+			$(".voteSong > h4").html('<strong style="color:#FFA07A;">Still Processing... please wait.</strong>')
+			return;
+		}
 		// $("#voteForm").attr("value", $(this).attr('value')) 
 		// $('#voteForm').submit();
-
+		stillProcessing = true;
 		$.post('/vote', { vote: $(this).attr('value') }, function(data) {
 
 			location.reload(true);

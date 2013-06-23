@@ -171,6 +171,10 @@ exports.vote = function(req, res){
     }
     else
     {
+      if (votesJsonDoc == '') // if file is empty, initialize dummy data.
+      {
+        votesJsonDoc = '{"_id":"user","votes":[{"ip":"999.999.999.999","stamp":[1368421005358,1368421158378,1368421162778]}]}';
+      }
       var parsedVotes = JSON.parse(votesJsonDoc)
       for (var userRecord in parsedVotes.votes) 
       {
